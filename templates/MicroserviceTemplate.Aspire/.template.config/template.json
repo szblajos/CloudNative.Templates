@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Lajos Szabó",
+  "classifications": [
+    "Microservice",
+    "Aspire",
+    "WebAPI",
+    "Redis",
+    "PostgreSQL",
+    "Mediator",
+    "FluentValidation",
+    "Mapperly",
+    "CleanArchitecture",
+    "DomainDrivenDesign"
+  ],
+  "name": "Clean Architecture Microservice Template with Aspire",
+  "identity": "Szblajos.MyService.Template",
+  "shortName": "clamsaspire",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "MyService",
+  "preferNameDirectory": true,
+  "sources": [
+    {
+      "source": "./",
+      "target": "./"
+    }
+  ],
+  "symbols": {
+    "serviceName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "MyService",
+      "description": "Name of the service",
+      "replaces": "MyService"
+    }
+  }
+}
+

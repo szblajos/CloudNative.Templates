@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "Run all",
+            "configurations": [
+                "Run Api",
+                "Run Aspire"
+            ]
+        }
+    ],
+    "configurations": [
+        {
+            "name": "Run Api",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\src\\MyService.Api\\MyService.Api.csproj"
+        },
+        {
+            "name": "Run Aspire",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\src\\MyService.Orchestration\\MyService.Orchestration.csproj"
+        }
+    ]
+}
