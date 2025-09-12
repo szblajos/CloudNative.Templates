@@ -28,6 +28,12 @@ namespace MyService.Infrastructure.Repositories
             await _dbContext.Items.AddAsync(item);
             await _dbContext.SaveChangesAsync();
         }
+        
+        public async Task UpdateAsync(Item item)
+        {
+            _dbContext.Items.Update(item);
+            await _dbContext.SaveChangesAsync();
+        }
 
         public async Task DeleteAsync(Item item)
         {
