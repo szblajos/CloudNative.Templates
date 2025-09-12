@@ -91,6 +91,41 @@ public static class ItemEndpoints
         .Produces<ItemDto>(StatusCodes.Status201Created)
         .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest);
 
+
+        routes.MapPut("/items/{id:int}", async (int id, UpdateItemDto dto, IMediator mediator, ICacheService cache) =>
+        {
+            var command = new UpdateItemCommand { Id = id, Dto = dto };
+            try
+            {
+                await mediator.Send(command);
+                await cache.RemoveResponseAsync("items:all");
+                return Results.NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return Results.NotFound();
+            }
+            catch (FluentValidation.ValidationException ex)
+            {
+                return Results.ValidationProblem(ex.Errors.ToDictionary());
+            }
+            catch (Exception ex)
+            {
+                // Replace this with your own logging mechanism
+                Console.WriteLine(ex);
+                // Consider returning a more specific error response
+                return Results.Problem("An unexpected error occurred.", statusCode: StatusCodes.Status500InternalServerError);
+            }
+        })
+        .WithName("UpdateItem")
+        .WithTags("Items")
+        .WithDescription("Update an existing item by ID")
+        .WithSummary("Updates the item in the database and clears the cache for items.")
+        .Accepts<UpdateItemDto>("application/json")
+        .Produces(StatusCodes.Status204NoContent)
+        .Produces<ValidationProblemDetails>(StatusCodes.Status400BadRequest)
+        .Produces(StatusCodes.Status404NotFound);
+
         ///
         /// Delete an item by ID
         /// This endpoint removes the item from the database and clears the cache.
