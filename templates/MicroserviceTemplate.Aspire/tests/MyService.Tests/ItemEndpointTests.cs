@@ -2,16 +2,12 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using MyService.Application.Item.Dtos;
-using MyService.Application.Item.Mappings;
 using MyService.Domain.Entities;
 using MyService.Domain.Interfaces;
-using Newtonsoft.Json;
 using StackExchange.Redis;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
-using Xunit;
+
 
 namespace MyService.Tests;
 
