@@ -53,8 +53,6 @@ public class UpdateItemHandler(IItemRepository itemRepository, IValidator<Update
             throw new KeyNotFoundException($"Item with ID {request.Id} not found.");
         }
 
-
-
         return Unit.Value;
     }
 }

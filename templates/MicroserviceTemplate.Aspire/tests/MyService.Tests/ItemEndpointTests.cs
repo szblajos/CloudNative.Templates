@@ -249,7 +249,7 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     [Theory]
     [InlineData("Item with negative quantity", -1)]
     [InlineData("", 5)] // Empty name
-    [InlineData("Item with a very long name that exceeds the maximum length aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 5)] // Name too
+    [InlineData("Item with a very long name that exceeds the maximum length aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 5)] // Name too long
     public async Task UpdateItem_ReturnsBadRequest_WhenItemIsInvalid(string itemName, int quantity)
     {
         // Arrange
