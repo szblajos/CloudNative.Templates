@@ -21,18 +21,25 @@ public class DeleteItemHandler : ICommandHandler<DeleteItemCommand>
         var item = await _itemRepository.GetByIdAsync(command.Id);
         if (item is not null)
         {
-            // Start the unit of work
-            await _unitOfWork.BeginAsync();
+            try
+            {
+                // Start the unit of work
+                await _unitOfWork.BeginAsync();
 
-            // Delete the item
-            await _itemRepository.DeleteAsync(item);
+                await _itemRepository.DeleteAsync(item);
 
-            // Publish the event
-            var evt = new ItemDeletedV1 { ItemId = command.Id };
-            await _unitOfWork.PublishDomainEventAsync(evt, nameof(ItemDeletedV1));
+                // Publish the event
+                var evt = new ItemDeletedV1 { ItemId = command.Id };
+                await _unitOfWork.PublishDomainEventAsync(evt, nameof(ItemDeletedV1));
 
-            // Commit the transaction
-            await _unitOfWork.CommitAsync();
+                // Commit the transaction
+                await _unitOfWork.CommitAsync();
+            }
+            catch
+            {
+                await _unitOfWork.RollbackAsync();
+                throw;
+            }
         }
         else
         {
