@@ -33,18 +33,26 @@ public sealed class CreateItemHandler(
         // Map the DTO to the entity
         var entity = _mapper.ToEntity(request.Item);
 
-        // Start the unit of work
-        await _unitOfWork.BeginAsync();
+        try
+        {
+            // Start the unit of work
+            await _unitOfWork.BeginAsync();
 
-        // Add the entity
-        await _repository.AddAsync(entity);
+            // Add the new item to the repository
+            await _repository.AddAsync(entity);
 
-        // Publish the event
-        var evt = new ItemCreatedV1 { ItemId = entity.Id };
-        await _unitOfWork.PublishDomainEventAsync(evt, nameof(ItemCreatedV1));
+            // Publish the event
+            var evt = new ItemCreatedV1 { ItemId = entity.Id };
+            await _unitOfWork.PublishDomainEventAsync(evt, nameof(ItemCreatedV1));
 
-        // Commit the transaction
-        await _unitOfWork.CommitAsync();
+            // Commit the transaction
+            await _unitOfWork.CommitAsync();
+        }
+        catch
+        {
+            await _unitOfWork.RollbackAsync();
+            throw;
+        }
 
         return _mapper.ToDto(entity);
     }
