@@ -3,7 +3,7 @@ using MyService.Application.Item.Commands;
 using MyService.Application.Item.Dtos;
 using MyService.Application.Item.Validations;
 
-namespace MyService.Tests;
+namespace MyService.Tests.ItemTests;
 
 public class UpdateItemCommandValidatorTests
 {

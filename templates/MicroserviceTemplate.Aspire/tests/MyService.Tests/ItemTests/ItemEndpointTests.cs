@@ -9,7 +9,7 @@ using System.Net;
 using System.Net.Http.Json;
 
 
-namespace MyService.Tests;
+namespace MyService.Tests.ItemTests;
 
 public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
 {
