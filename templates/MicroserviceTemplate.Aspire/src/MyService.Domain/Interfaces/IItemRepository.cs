@@ -5,9 +5,11 @@ namespace MyService.Domain.Interfaces;
 public interface IItemRepository
 {
     Task<Item?> GetByIdAsync(int id);
-    Task<IEnumerable<Item>> GetAllAsync();
-    Task AddAsync(Item item);
-    Task UpdateAsync(Item item);
-    Task DeleteAsync(Item item);
+    Task<int> GetCountAsync(CancellationToken cancellationToken = default);
+    Task<IEnumerable<Item>> GetPagedAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Item>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task AddAsync(Item item, CancellationToken cancellationToken = default);
+    Task UpdateAsync(Item item, CancellationToken cancellationToken = default);
+    Task DeleteAsync(Item item, CancellationToken cancellationToken = default);
 
 }

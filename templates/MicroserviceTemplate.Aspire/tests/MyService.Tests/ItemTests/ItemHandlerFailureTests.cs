@@ -24,7 +24,7 @@ public class ItemHandlerFailureTests
         validatorMock.Setup(v => v.ValidateAsync(command, It.IsAny<CancellationToken>()))
             .ReturnsAsync(new FluentValidation.Results.ValidationResult());
 
-        repoMock.Setup(r => r.AddAsync(It.IsAny<Item>())).ThrowsAsync(new Exception("Insert failed"));
+        repoMock.Setup(r => r.AddAsync(It.IsAny<Item>(), It.IsAny<CancellationToken>())).ThrowsAsync(new Exception("Insert failed"));
 
         var handler = new CreateItemHandler(repoMock.Object, mapperMock.Object, unitOfWorkMock.Object, validatorMock.Object);
 
@@ -45,7 +45,7 @@ public class ItemHandlerFailureTests
             .ReturnsAsync(new FluentValidation.Results.ValidationResult());
 
         repoMock.Setup(r => r.GetByIdAsync(command.Id)).ReturnsAsync(new Item { Id = 1, Name = "Old", Quantity = 1 });
-        repoMock.Setup(r => r.UpdateAsync(It.IsAny<Item>())).ThrowsAsync(new Exception("Update failed"));
+        repoMock.Setup(r => r.UpdateAsync(It.IsAny<Item>(), It.IsAny<CancellationToken>())).ThrowsAsync(new Exception("Update failed"));
 
         var handler = new UpdateItemHandler(repoMock.Object, validatorMock.Object, unitOfWorkMock.Object);
 
@@ -62,7 +62,7 @@ public class ItemHandlerFailureTests
 
         var command = new DeleteItemCommand(id: 1);
         repoMock.Setup(r => r.GetByIdAsync(command.Id)).ReturnsAsync(new Item { Id = 1, Name = "DeleteMe", Quantity = 1 });
-        repoMock.Setup(r => r.DeleteAsync(It.IsAny<Item>())).ThrowsAsync(new Exception("Delete failed"));
+        repoMock.Setup(r => r.DeleteAsync(It.IsAny<Item>(), It.IsAny<CancellationToken>())).ThrowsAsync(new Exception("Delete failed"));
 
         var handler = new DeleteItemHandler(repoMock.Object, unitOfWorkMock.Object);
 

@@ -16,6 +16,11 @@ public class RedisCacheService : ICacheService
     private readonly IDatabase _db;
 
     /// <summary>
+    /// Redis server for key pattern operations.
+    /// </summary>
+    private readonly IServer _server;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="RedisCacheService"/> class.
     /// </summary>
     /// <param name="redis">The Redis connection multiplexer.</param>
@@ -27,6 +32,7 @@ public class RedisCacheService : ICacheService
             throw new ArgumentNullException(nameof(redis), "Redis connection multiplexer is not configured");
         }
         _db = redis.GetDatabase();
+        _server = redis.GetServer(redis.GetEndPoints().First());
     }
 
     /// <summary>
@@ -61,5 +67,21 @@ public class RedisCacheService : ICacheService
     public async Task RemoveResponseAsync(string key)
     {
         await _db.KeyDeleteAsync(key);
+    }
+
+    /// <summary>
+    /// Removes cache entries matching the specified pattern.
+    /// </summary>
+    /// <param name="pattern">The cache key pattern.</param>
+    public async Task RemoveByPatternAsync(string pattern)
+    {
+        // Scan keys matching the pattern
+        var keys = _server.Keys(pattern: pattern);
+
+        // Delete the matching keys
+        foreach (var key in keys)
+        {
+            await _db.KeyDeleteAsync(key);
+        }
     }
 }

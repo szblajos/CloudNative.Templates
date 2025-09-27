@@ -18,29 +18,42 @@ namespace MyService.Infrastructure.Repositories
             return await _dbContext.Items.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Item>> GetAllAsync()
+        public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Items.ToListAsync();
+            return await _dbContext.Items.CountAsync(cancellationToken);
         }
 
-        public async Task AddAsync(Item item)
+        public async Task<IEnumerable<Item>> GetPagedAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
         {
-            await _dbContext.Items.AddAsync(item);
-            await _dbContext.SaveChangesAsync();
+            return await _dbContext.Items
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
         }
-        
-        public async Task UpdateAsync(Item item)
+
+        public async Task<IEnumerable<Item>> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.Items.ToListAsync(cancellationToken);
+        }
+
+        public async Task AddAsync(Item item, CancellationToken cancellationToken = default)
+        {
+            await _dbContext.Items.AddAsync(item, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task UpdateAsync(Item item, CancellationToken cancellationToken = default)
         {
             _dbContext.Items.Update(item);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(Item item)
+        public async Task DeleteAsync(Item item, CancellationToken cancellationToken = default)
         {
             if (item != null)
             {
                 _dbContext.Items.Remove(item);
-                await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync(cancellationToken);
             }
         }
     }
