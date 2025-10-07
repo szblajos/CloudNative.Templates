@@ -13,7 +13,7 @@ public interface IItemRepository
 
     /// <summary>
     /// Gets all items without pagination. Use with caution for large datasets.
-    /// Consider using GetPagedAsync or projection methods for better performance.
+    /// Consider using projection methods for better performance.
     /// </summary>
     Task<IEnumerable<Item>> GetAllAsync(CancellationToken cancellationToken = default);
 
