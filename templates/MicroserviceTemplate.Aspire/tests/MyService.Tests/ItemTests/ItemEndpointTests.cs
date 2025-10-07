@@ -117,8 +117,10 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task GetItems_UsesCacheService()
     {
         // Arrange
-        _itemRepositoryMock.Setup(repo => repo.GetPagedAsync(1, 10, It.IsAny<CancellationToken>()))
-                           .ReturnsAsync(new List<Item>());
+        _itemRepositoryMock.Setup(repo => repo.GetPagedProjectionAsync<ItemDto>(
+                It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+                1, 10, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((new List<ItemDto>(), 0));
 
         _cacheMock.Setup(x => x.GetResponseAsync<PagedResult<ItemDto>?>(It.IsAny<string>()))
                   .ReturnsAsync((PagedResult<ItemDto>?)new PagedResult<ItemDto> { Items = new List<ItemDto> { new ItemDto { Id = 1, Name = "Test Item" } } });
@@ -134,8 +136,12 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task GetItems_ReturnsOk()
     {
         // Arrange
-        _itemRepositoryMock.Setup(repo => repo.GetPagedAsync(1, 10, It.IsAny<CancellationToken>()))
-                           .ReturnsAsync(new List<Item> { new Item { Id = 1, Name = "Test Item" } });
+        var testItemDtos = new List<ItemDto> { new ItemDto { Id = 1, Name = "Test Item" } };
+        
+        _itemRepositoryMock.Setup(repo => repo.GetPagedProjectionAsync<ItemDto>(
+                It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+                1, 10, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((testItemDtos, 1));
 
         _cacheMock.Setup(x => x.GetResponseAsync<PagedResult<ItemDto>?>("items:page:1:size:10"))
                   .ReturnsAsync((PagedResult<ItemDto>?)null);
@@ -342,13 +348,13 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task GetItems_WithDefaultPaging_ReturnsPagedResult()
     {
         // Arrange
-        var items = GenerateTestItems(25);
-        var pagedItems = items.Take(10); // Default page size is 10
+        var itemDtos = GenerateTestItemDtos(10); // First 10 items for page 1
+        var totalCount = 25;
 
-        _itemRepositoryMock.Setup(repo => repo.GetCountAsync(It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(25);
-        _itemRepositoryMock.Setup(repo => repo.GetPagedAsync(1, 10, It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(pagedItems);
+        _itemRepositoryMock.Setup(repo => repo.GetPagedProjectionAsync<ItemDto>(
+                It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+                1, 10, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((itemDtos, totalCount));
 
         _cacheMock.Setup(x => x.GetResponseAsync<PagedResult<ItemDto>>(It.IsAny<string>()))
                   .ReturnsAsync((PagedResult<ItemDto>?)null);
@@ -375,13 +381,13 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task GetItems_WithCustomPaging_ReturnsCorrectPage()
     {
         // Arrange
-        var items = GenerateTestItems(25);
-        var pagedItems = items.Skip(10).Take(5); // Page 3, size 5
+        var itemDtos = GenerateTestItemDtos(25).Skip(10).Take(5).ToList(); // Page 3, size 5
+        var totalCount = 25;
 
-        _itemRepositoryMock.Setup(repo => repo.GetCountAsync(It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(25);
-        _itemRepositoryMock.Setup(repo => repo.GetPagedAsync(3, 5, It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(pagedItems);
+        _itemRepositoryMock.Setup(repo => repo.GetPagedProjectionAsync<ItemDto>(
+                It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+                3, 5, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((itemDtos, totalCount));
 
         _cacheMock.Setup(x => x.GetResponseAsync<PagedResult<ItemDto>>(It.IsAny<string>()))
                   .ReturnsAsync((PagedResult<ItemDto>?)null);
@@ -408,13 +414,13 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task GetItems_WithLastPage_HasNoNextPage()
     {
         // Arrange
-        var items = GenerateTestItems(23);
-        var pagedItems = items.Skip(20).Take(10); // Last page with 3 items
+        var itemDtos = GenerateTestItemDtos(3); // Last page with 3 items
+        var totalCount = 23;
 
-        _itemRepositoryMock.Setup(repo => repo.GetCountAsync(It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(23);
-        _itemRepositoryMock.Setup(repo => repo.GetPagedAsync(3, 10, It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(pagedItems);
+        _itemRepositoryMock.Setup(repo => repo.GetPagedProjectionAsync<ItemDto>(
+                It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+                3, 10, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((itemDtos, totalCount));
 
         _cacheMock.Setup(x => x.GetResponseAsync<PagedResult<ItemDto>>(It.IsAny<string>()))
                   .ReturnsAsync((PagedResult<ItemDto>?)null);
@@ -441,10 +447,10 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task GetItems_WithEmptyResult_ReturnsEmptyPagedResult()
     {
         // Arrange
-        _itemRepositoryMock.Setup(repo => repo.GetCountAsync(It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(0);
-        _itemRepositoryMock.Setup(repo => repo.GetPagedAsync(1, 10, It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(Enumerable.Empty<Item>());
+        _itemRepositoryMock.Setup(repo => repo.GetPagedProjectionAsync<ItemDto>(
+                It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+                1, 10, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((Enumerable.Empty<ItemDto>(), 0));
 
         _cacheMock.Setup(x => x.GetResponseAsync<PagedResult<ItemDto>>(It.IsAny<string>()))
                   .ReturnsAsync((PagedResult<ItemDto>?)null);
@@ -475,13 +481,13 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task GetItems_WithInvalidPagingParameters_UsesDefaults(int inputPageNumber, int inputPageSize, int expectedPageNumber, int expectedPageSize)
     {
         // Arrange
-        var items = GenerateTestItems(15);
-        var pagedItems = items.Take(expectedPageSize);
+        var itemDtos = GenerateTestItemDtos(expectedPageSize);
+        var totalCount = 15;
 
-        _itemRepositoryMock.Setup(repo => repo.GetCountAsync(It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(15);
-        _itemRepositoryMock.Setup(repo => repo.GetPagedAsync(expectedPageNumber, expectedPageSize, It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(pagedItems);
+        _itemRepositoryMock.Setup(repo => repo.GetPagedProjectionAsync<ItemDto>(
+                It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+                expectedPageNumber, expectedPageSize, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((itemDtos, totalCount));
 
         _cacheMock.Setup(x => x.GetResponseAsync<PagedResult<ItemDto>>(It.IsAny<string>()))
                   .ReturnsAsync((PagedResult<ItemDto>?)null);
@@ -503,13 +509,13 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task GetItems_WithPageSizeExceedingMaximum_CapsAtMaximum()
     {
         // Arrange
-        var items = GenerateTestItems(150);
-        var pagedItems = items.Take(100); // Should be capped at 100
+        var itemDtos = GenerateTestItemDtos(100); // Should be capped at 100
+        var totalCount = 150;
 
-        _itemRepositoryMock.Setup(repo => repo.GetCountAsync(It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(150);
-        _itemRepositoryMock.Setup(repo => repo.GetPagedAsync(1, 100, It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(pagedItems);
+        _itemRepositoryMock.Setup(repo => repo.GetPagedProjectionAsync<ItemDto>(
+                It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+                1, 100, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((itemDtos, totalCount));
 
         _cacheMock.Setup(x => x.GetResponseAsync<PagedResult<ItemDto>>(It.IsAny<string>()))
                   .ReturnsAsync((PagedResult<ItemDto>?)null);
@@ -552,9 +558,10 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
         // Verify cache was checked with correct key
         _cacheMock.Verify(x => x.GetResponseAsync<PagedResult<ItemDto>>("items:page:2:size:5"), Times.Once);
         
-        // Verify repository methods were NOT called since we got cached result
-        _itemRepositoryMock.Verify(repo => repo.GetCountAsync(It.IsAny<CancellationToken>()), Times.Never);
-        _itemRepositoryMock.Verify(repo => repo.GetPagedAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()), Times.Never);
+        // Verify repository projection method was NOT called since we got cached result
+        _itemRepositoryMock.Verify(repo => repo.GetPagedProjectionAsync<ItemDto>(
+            It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+            It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()), Times.Never);
 
         Assert.Contains("Cached Item", content);
     }
@@ -563,13 +570,13 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task GetItems_WithPaging_CachesResultAfterDatabaseCall()
     {
         // Arrange
-        var items = GenerateTestItems(20);
-        var pagedItems = items.Skip(5).Take(5); // Page 2, size 5
+        var itemDtos = GenerateTestItemDtos(5); // Page 2, size 5
+        var totalCount = 20;
 
-        _itemRepositoryMock.Setup(repo => repo.GetCountAsync(It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(20);
-        _itemRepositoryMock.Setup(repo => repo.GetPagedAsync(2, 5, It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(pagedItems);
+        _itemRepositoryMock.Setup(repo => repo.GetPagedProjectionAsync<ItemDto>(
+                It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+                2, 5, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((itemDtos, totalCount));
 
         _cacheMock.Setup(x => x.GetResponseAsync<PagedResult<ItemDto>>(It.IsAny<string>()))
                   .ReturnsAsync((PagedResult<ItemDto>?)null);
@@ -592,12 +599,12 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task GetItems_WithPageBeyondTotalPages_ReturnsEmptyPage()
     {
         // Arrange
-        var items = GenerateTestItems(10);
+        var totalCount = 10;
 
-        _itemRepositoryMock.Setup(repo => repo.GetCountAsync(It.IsAny<CancellationToken>()))
-                          .ReturnsAsync(10);
-        _itemRepositoryMock.Setup(repo => repo.GetPagedAsync(5, 10, It.IsAny<CancellationToken>())) // Page 5 when only 1 page exists
-                          .ReturnsAsync(Enumerable.Empty<Item>());
+        _itemRepositoryMock.Setup(repo => repo.GetPagedProjectionAsync<ItemDto>(
+                It.IsAny<Func<IQueryable<Item>, IQueryable<ItemDto>>>(),
+                5, 10, It.IsAny<CancellationToken>())) // Page 5 when only 1 page exists
+            .ReturnsAsync((Enumerable.Empty<ItemDto>(), totalCount));
 
         _cacheMock.Setup(x => x.GetResponseAsync<PagedResult<ItemDto>>(It.IsAny<string>()))
                   .ReturnsAsync((PagedResult<ItemDto>?)null);
@@ -625,21 +632,20 @@ public class ItemEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     
     #region Helper Methods
 
-    private static List<Item> GenerateTestItems(int count)
+    private static List<ItemDto> GenerateTestItemDtos(int count)
     {
-        var items = new List<Item>();
+        var itemDtos = new List<ItemDto>();
         for (int i = 1; i <= count; i++)
         {
-            items.Add(new Item
+            itemDtos.Add(new ItemDto
             {
                 Id = i,
                 Name = $"Test Item {i}",
                 Quantity = i * 10
             });
         }
-        return items;
+        return itemDtos;
     }
 
     #endregion
-
 }

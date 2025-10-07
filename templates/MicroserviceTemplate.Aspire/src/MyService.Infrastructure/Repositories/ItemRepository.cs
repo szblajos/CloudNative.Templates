@@ -1,9 +1,9 @@
 using MyService.Domain.Entities;
 using MyService.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyService.Infrastructure.Repositories
-{
-    using Microsoft.EntityFrameworkCore;
+{    
     public class ItemRepository : IItemRepository
     {
         private readonly Data.AppDbContext _dbContext;
@@ -18,22 +18,36 @@ namespace MyService.Infrastructure.Repositories
             return await _dbContext.Items.FindAsync(id);
         }
 
-        public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
-        {
-            return await _dbContext.Items.CountAsync(cancellationToken);
-        }
-
-        public async Task<IEnumerable<Item>> GetPagedAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
-        {
-            return await _dbContext.Items
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync(cancellationToken);
-        }
-
         public async Task<IEnumerable<Item>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return await _dbContext.Items.ToListAsync(cancellationToken);
+        }
+
+        public async Task<(IEnumerable<TProjection> Items, int TotalCount)> GetPagedProjectionAsync<TProjection>(
+        Func<IQueryable<Item>, IQueryable<TProjection>> projection,
+        int pageNumber,
+        int pageSize,
+        CancellationToken cancellationToken = default)
+        {
+            var query = _dbContext.Items.AsQueryable();
+            var totalCount = await query.CountAsync(cancellationToken);
+            
+            var projectedQuery = projection(query);
+            var items = await projectedQuery
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
+                
+            return (items, totalCount);
+        }
+
+        public async Task<IEnumerable<TProjection>> GetAllProjectionAsync<TProjection>(
+            Func<IQueryable<Item>, IQueryable<TProjection>> projection,
+            CancellationToken cancellationToken = default)
+        {
+            var query = _dbContext.Items.AsQueryable();
+            var projectedQuery = projection(query);
+            return await projectedQuery.ToListAsync(cancellationToken);
         }
 
         public async Task AddAsync(Item item, CancellationToken cancellationToken = default)

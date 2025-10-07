@@ -36,7 +36,7 @@ public static class ServiceCollectionExtensions
     /// <returns>Returns the configured service collection.</returns>
     public static IServiceCollection AddMappings(this IServiceCollection services)
     {
-        services.AddSingleton<IItemMapper, ItemMapper>();
+        services.AddSingleton<IItemMapper, ItemMapperService>();
         // register other mappers here
 
         return services;
