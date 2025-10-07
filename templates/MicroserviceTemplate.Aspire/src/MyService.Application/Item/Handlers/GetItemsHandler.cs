@@ -15,16 +15,21 @@ public class GetItemsHandler(IItemRepository itemRepository, IItemMapper mapper)
     {
         if (query.PagingParameters != null)
         {
-            var totalCount = await _itemRepository.GetCountAsync(cancellationToken);
-            var items = await _itemRepository.GetPagedAsync(query.PagingParameters.PageNumber, query.PagingParameters.PageSize, cancellationToken);
-            var itemDtos = _mapper.ToDto(items);
+            var (itemDtos, totalCount) = await _itemRepository.GetPagedProjectionAsync(
+                _mapper.ProjectToDto,
+                query.PagingParameters.PageNumber,
+                query.PagingParameters.PageSize,
+                cancellationToken);
+                
             return new PagedResult<ItemDto>(itemDtos, totalCount, query.PagingParameters.PageNumber, query.PagingParameters.PageSize);
         }
         else
         {
-            var items = await _itemRepository.GetAllAsync();
-            var itemDtos = _mapper.ToDto(items);
-            return new PagedResult<ItemDto>(itemDtos.ToArray(), items.Count());
+            var itemDtos = await _itemRepository.GetAllProjectionAsync(
+                _mapper.ProjectToDto,
+                cancellationToken);
+                
+            return new PagedResult<ItemDto>(itemDtos, itemDtos.Count());
         }
     }
 }
