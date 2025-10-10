@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using MyService.Domain.Interfaces;
 using MyService.Application.Common;
 
-namespace MyService.Api.Item.Endpoints;
+namespace MyService.Api.Items.Endpoints;
 
-public static class ItemEndpoints
+public static class ItemsEndpoints
 {
-    public static void MapItemEndpoints(this IEndpointRouteBuilder routes)
+    public static void MapItemsEndpoints(this IEndpointRouteBuilder routes)
     {
         var group = routes.MapGroup("/api/items").WithTags("Items");
 

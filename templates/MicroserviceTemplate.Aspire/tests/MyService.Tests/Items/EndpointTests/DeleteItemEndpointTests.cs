@@ -3,9 +3,9 @@ using Moq;
 using MyService.Domain.Entities;
 using System.Net;
 
-namespace MyService.Tests.ItemTests.EndpointTests;
+namespace MyService.Tests.Items.EndpointTests;
 
-public class DeleteItemEndpointTests : ItemEndpointsTestsBase
+public class DeleteItemEndpointTests : EndpointsTestsBase
 {
     public DeleteItemEndpointTests(WebApplicationFactory<Program> factory) : base(factory) { }
 

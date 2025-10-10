@@ -1,16 +1,15 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using MyService.Application.Common;
 using MyService.Application.Item.Dtos;
 using MyService.Domain.Entities;
 using MyService.Domain.Interfaces;
 using StackExchange.Redis;
 using System.Net.Http;
 
-namespace MyService.Tests.ItemTests.EndpointTests;
+namespace MyService.Tests.Items.EndpointTests;
 
-public abstract class ItemEndpointsTestsBase : IClassFixture<WebApplicationFactory<Program>>
+public abstract class EndpointsTestsBase : IClassFixture<WebApplicationFactory<Program>>
 {
     protected readonly HttpClient Client;
     protected readonly Mock<IItemRepository> ItemRepositoryMock = new();
@@ -20,7 +19,7 @@ public abstract class ItemEndpointsTestsBase : IClassFixture<WebApplicationFacto
     protected readonly Mock<IUnitOfWork> UnitOfWorkMock = new();
     protected readonly Mock<IConnectionMultiplexer> ConnectionMultiplexerMock = new();
 
-    protected ItemEndpointsTestsBase(WebApplicationFactory<Program> factory)
+    protected EndpointsTestsBase(WebApplicationFactory<Program> factory)
     {
         Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
 

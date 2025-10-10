@@ -5,9 +5,9 @@ using MyService.Domain.Entities;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace MyService.Tests.ItemTests.EndpointTests;
+namespace MyService.Tests.Items.EndpointTests;
 
-public class UpdateItemEndpointTests : ItemEndpointsTestsBase
+public class UpdateItemEndpointTests : EndpointsTestsBase
 {
     public UpdateItemEndpointTests(WebApplicationFactory<Program> factory) : base(factory) { }
 

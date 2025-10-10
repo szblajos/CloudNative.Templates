@@ -3,9 +3,9 @@ using Moq;
 using MyService.Domain.Entities;
 using System.Net;
 
-namespace MyService.Tests.ItemTests.EndpointTests;
+namespace MyService.Tests.Items.EndpointTests;
 
-public class GetItemByIdEndpointTests : ItemEndpointsTestsBase
+public class GetItemByIdEndpointTests : EndpointsTestsBase
 {
     public GetItemByIdEndpointTests(WebApplicationFactory<Program> factory) : base(factory) { }
 

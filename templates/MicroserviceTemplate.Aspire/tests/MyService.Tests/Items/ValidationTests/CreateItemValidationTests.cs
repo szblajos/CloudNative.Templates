@@ -1,45 +1,44 @@
-
 using MyService.Application.Item.Commands;
 using MyService.Application.Item.Dtos;
 using MyService.Application.Item.Validations;
 
-namespace MyService.Tests.ItemTests.ValidationTests;
+namespace MyService.Tests.Items.ValidationTests;
 
-public class UpdateItemCommandValidatorTests
+public class CreateItemValidationTests
 {
-    private readonly UpdateItemCommandValidator _validator;
+    private readonly CreateItemCommandValidator _validator;
 
-    public UpdateItemCommandValidatorTests()
+    public CreateItemValidationTests()
     {
-        _validator = new UpdateItemCommandValidator();
+        _validator = new CreateItemCommandValidator();
     }
 
     [Fact]
     public void Validate_ShouldReturnError_WhenNameIsEmpty()
     {
         // Arrange
-        var command = new UpdateItemCommand { Id = 1, Dto = new UpdateItemDto { Name = "", Quantity = 10 } };
+        var command = new CreateItemCommand(new CreateItemDto { Name = "", Quantity = 10 });
 
         // Act
         var result = _validator.Validate(command);
 
         // Assert
         Assert.False(result.IsValid);
-        Assert.Contains(result.Errors, e => e.PropertyName == "Dto.Name");
+        Assert.Contains(result.Errors, e => e.PropertyName == "Item.Name");
     }
 
     [Fact]
-    public void Validate_ShouldReturnError_WhenPriceIsNegative()
+    public void Validate_ShouldReturnError_WhenQuantityIsNegative()
     {
         // Arrange
-        var command = new UpdateItemCommand { Id = 1, Dto = new UpdateItemDto { Name = "Test Item", Quantity = -1 } };
+        var command = new CreateItemCommand(new CreateItemDto { Name = "Test Item", Quantity = -1 });
 
         // Act
         var result = _validator.Validate(command);
 
         // Assert
         Assert.False(result.IsValid);
-        Assert.Contains(result.Errors, e => e.PropertyName == "Dto.Quantity");
+        Assert.Contains(result.Errors, e => e.PropertyName == "Item.Quantity");
     }
 
     [Fact]
@@ -47,21 +46,21 @@ public class UpdateItemCommandValidatorTests
     {
         // Arrange
         var longName = new string('A', 101); // 101 characters
-        var command = new UpdateItemCommand { Id = 1, Dto = new UpdateItemDto { Name = longName, Quantity = 10 } };
+        var command = new CreateItemCommand(new CreateItemDto { Name = longName, Quantity = 10 });
 
         // Act
         var result = _validator.Validate(command);
 
         // Assert
         Assert.False(result.IsValid);
-        Assert.Contains(result.Errors, e => e.PropertyName == "Dto.Name");
+        Assert.Contains(result.Errors, e => e.PropertyName == "Item.Name");
     }
 
     [Fact]
     public void Validate_ShouldPass_WhenDataIsValid()
     {
         // Arrange
-        var command = new UpdateItemCommand { Id = 1, Dto = new UpdateItemDto { Name = "Valid Item", Quantity = 5 } };
+        var command = new CreateItemCommand(new CreateItemDto { Name = "Valid Item", Quantity = 5 });
 
         // Act
         var result = _validator.Validate(command);

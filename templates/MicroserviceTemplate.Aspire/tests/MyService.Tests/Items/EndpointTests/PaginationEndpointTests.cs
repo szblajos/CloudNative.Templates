@@ -5,9 +5,9 @@ using MyService.Application.Item.Dtos;
 using MyService.Domain.Entities;
 using System.Text.Json;
 
-namespace MyService.Tests.ItemTests.EndpointTests;
+namespace MyService.Tests.Items.EndpointTests;
 
-public class PaginationEndpointTests : ItemEndpointsTestsBase
+public class PaginationEndpointTests : EndpointsTestsBase
 {
     public PaginationEndpointTests(WebApplicationFactory<Program> factory) : base(factory) { }
 

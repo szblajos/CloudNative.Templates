@@ -8,7 +8,7 @@ using MyService.Domain.Interfaces;
 using MyService.Application.Item.Mappings;
 using Mediator;
 
-namespace MyService.Tests.ItemTests.FailureTests;
+namespace MyService.Tests.Items.FailureTests;
 
 public class ItemHandlerFailureTests
 {

@@ -3,11 +3,10 @@ using Moq;
 using MyService.Application.Common;
 using MyService.Application.Item.Dtos;
 using MyService.Domain.Entities;
-using System.Text.Json;
 
-namespace MyService.Tests.ItemTests.EndpointTests;
+namespace MyService.Tests.Items.EndpointTests;
 
-public class GetItemsEndpointTests : ItemEndpointsTestsBase
+public class GetItemsEndpointTests : EndpointsTestsBase
 {
     public GetItemsEndpointTests(WebApplicationFactory<Program> factory) : base(factory) { }
 
