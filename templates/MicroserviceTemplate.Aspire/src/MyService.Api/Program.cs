@@ -1,6 +1,5 @@
-using MyService.Api.Extensions;
+using MyService.Api.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
-using MyService.Application.Item.Mappings;
 using MyService.Application.Extensions;
 using Scalar.AspNetCore;
 using MyService.Infrastructure.Extensions;

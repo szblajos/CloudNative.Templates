@@ -1,6 +1,6 @@
-using MyService.Api.Endpoints;
+using MyService.Api.Item.Endpoints;
 
-namespace MyService.Api.Extensions;
+namespace MyService.Api.Common.Extensions;
 
 public static class EndpointExtensions
 {
