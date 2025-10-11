@@ -1,5 +1,5 @@
 using MyService.Api.Common.Extensions;
-using MyService.Application.Extensions;
+using MyService.Application.Common.Extensions;
 using Scalar.AspNetCore;
 using MyService.Infrastructure.Common.Extensions;
 

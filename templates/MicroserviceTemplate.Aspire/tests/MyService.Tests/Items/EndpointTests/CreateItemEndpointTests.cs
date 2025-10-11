@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
-using MyService.Application.Item.Dtos;
+using MyService.Application.Items.Dtos;
 using MyService.Domain.Items.Entities;
 using System.Net;
 using System.Net.Http.Json;

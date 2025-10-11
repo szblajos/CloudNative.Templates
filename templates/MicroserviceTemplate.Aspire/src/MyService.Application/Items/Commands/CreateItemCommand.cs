@@ -1,7 +1,7 @@
 using Mediator;
-using MyService.Application.Item.Dtos;
+using MyService.Application.Items.Dtos;
 
-namespace MyService.Application.Item.Commands;
+namespace MyService.Application.Items.Commands;
 
 public class CreateItemCommand(CreateItemDto item) : IRequest<ItemDto>
 {

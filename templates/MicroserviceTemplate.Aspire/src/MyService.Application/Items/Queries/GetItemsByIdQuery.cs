@@ -1,7 +1,7 @@
 using Mediator;
-using MyService.Application.Item.Dtos;
+using MyService.Application.Items.Dtos;
 
-namespace MyService.Application.Item.Queries;
+namespace MyService.Application.Items.Queries;
 
 public class GetItemsByIdQuery : IRequest<ItemDto>
 {

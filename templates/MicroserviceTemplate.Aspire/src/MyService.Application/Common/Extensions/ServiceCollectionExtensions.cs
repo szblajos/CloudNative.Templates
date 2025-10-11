@@ -1,16 +1,16 @@
 using Microsoft.Extensions.DependencyInjection;
-using MyService.Application.Item.Validations;
+using MyService.Application.Items.Validations;
 using FluentValidation;
 using Mediator;
-using MyService.Application.Item.Commands;
-using MyService.Application.Item.Mappings;
+using MyService.Application.Items.Commands;
+using MyService.Application.Items.Mappings;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry.Trace;
 using Microsoft.Extensions.Configuration;
 using OpenTelemetry;
-using MyService.Application.Behaviors;
+using MyService.Application.Common.Behaviors;
 
-namespace MyService.Application.Extensions;
+namespace MyService.Application.Common.Extensions;
 
 /// <summary>
 /// Extension methods for registering application services.

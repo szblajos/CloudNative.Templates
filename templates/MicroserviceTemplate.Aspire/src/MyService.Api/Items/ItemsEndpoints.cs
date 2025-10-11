@@ -1,8 +1,8 @@
 using Mediator;
-using MyService.Application.Item.Commands;
-using MyService.Application.Item.Dtos;
-using MyService.Application.Item.Queries;
-using MyService.Application.Extensions;
+using MyService.Application.Items.Commands;
+using MyService.Application.Items.Dtos;
+using MyService.Application.Items.Queries;
+using MyService.Application.Common.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using MyService.Domain.Common.Interfaces;
 using MyService.Application.Common;

@@ -1,7 +1,7 @@
 
-using MyService.Application.Item.Commands;
-using MyService.Application.Item.Dtos;
-using MyService.Application.Item.Validations;
+using MyService.Application.Items.Commands;
+using MyService.Application.Items.Dtos;
+using MyService.Application.Items.Validations;
 
 namespace MyService.Tests.Items.ValidationTests;
 

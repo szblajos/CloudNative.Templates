@@ -1,7 +1,7 @@
 using MyService.Application.Common;
-using MyService.Application.Item.Dtos;
+using MyService.Application.Items.Dtos;
 using Mediator;
 
-namespace MyService.Application.Item.Queries;
+namespace MyService.Application.Items.Queries;
 
 public record GetItemsQuery(PagingParameters? PagingParameters = null) : IRequest<PagedResult<ItemDto>>;

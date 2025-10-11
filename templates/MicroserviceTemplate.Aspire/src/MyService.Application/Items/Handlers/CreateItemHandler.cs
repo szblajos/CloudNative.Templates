@@ -1,15 +1,14 @@
 using Mediator;
-using MyService.Application.Item.Commands;
-using MyService.Application.Item.Mappings;
+using MyService.Application.Items.Commands;
+using MyService.Application.Items.Mappings;
 using MyService.Domain.Items.Interfaces;
 using MyService.Domain.Common.Interfaces;
-using MyService.Application.Item.Dtos;
+using MyService.Application.Items.Dtos;
 using FluentValidation;
-using MyService.Application.Item.Validations;
-using System;
+using MyService.Application.Items.Validations;
 using MyService.Domain.Items.Events;
 
-namespace MyService.Application.Item.Handlers;
+namespace MyService.Application.Items.Handlers;
 
 public sealed class CreateItemHandler(
     IItemsRepository itemsRepository,

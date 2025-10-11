@@ -1,6 +1,6 @@
 using Mediator;
 
-namespace MyService.Application.Item.Commands;
+namespace MyService.Application.Items.Commands;
 
 public class DeleteItemCommand : ICommand
 {

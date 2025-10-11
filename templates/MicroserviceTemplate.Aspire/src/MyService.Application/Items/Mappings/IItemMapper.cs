@@ -1,4 +1,4 @@
-namespace MyService.Application.Item.Mappings;
+namespace MyService.Application.Items.Mappings;
 
 public interface IItemMapper
 {

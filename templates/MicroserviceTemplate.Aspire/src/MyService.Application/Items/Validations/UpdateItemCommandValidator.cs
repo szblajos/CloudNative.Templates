@@ -1,7 +1,7 @@
 using FluentValidation;
-using MyService.Application.Item.Commands;
+using MyService.Application.Items.Commands;
 
-namespace MyService.Application.Item.Validations;
+namespace MyService.Application.Items.Validations;
 
 public class UpdateItemCommandValidator : AbstractValidator<UpdateItemCommand>
 {

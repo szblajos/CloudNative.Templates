@@ -1,6 +1,6 @@
 using Riok.Mapperly.Abstractions;
 
-namespace MyService.Application.Item.Mappings;
+namespace MyService.Application.Items.Mappings;
 
 [Mapper]
 public partial class ItemMapper : IItemMapper

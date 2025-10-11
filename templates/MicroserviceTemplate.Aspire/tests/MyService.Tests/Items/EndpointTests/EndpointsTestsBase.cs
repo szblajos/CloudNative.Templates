@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using MyService.Application.Item.Dtos;
+using MyService.Application.Items.Dtos;
 using MyService.Domain.Common.Entities;
 using MyService.Domain.Common.Interfaces;
 using MyService.Domain.Items.Interfaces;

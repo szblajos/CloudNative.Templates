@@ -1,11 +1,11 @@
 using Mediator;
 using MyService.Application.Common;
-using MyService.Application.Item.Dtos;
-using MyService.Application.Item.Mappings;
-using MyService.Application.Item.Queries;
+using MyService.Application.Items.Dtos;
+using MyService.Application.Items.Mappings;
+using MyService.Application.Items.Queries;
 using MyService.Domain.Items.Interfaces;
 
-namespace MyService.Application.Item.Handlers;
+namespace MyService.Application.Items.Handlers;
 
 public class GetItemsHandler(IItemsRepository itemsRepository, IItemMapper mapper) : IRequestHandler<GetItemsQuery, PagedResult<ItemDto>>
 {

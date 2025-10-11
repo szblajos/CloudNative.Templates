@@ -1,4 +1,4 @@
-namespace MyService.Application.Item.Dtos;
+namespace MyService.Application.Items.Dtos;
 
 public class ItemDto
 {

@@ -2,7 +2,7 @@
 using Mediator;
 using OpenTelemetry.Trace;
 
-namespace MyService.Application.Behaviors;
+namespace MyService.Application.Common.Behaviors;
 
 public class TelemetryBehavior<TMessage, TResponse> : IPipelineBehavior<TMessage, TResponse>
     where TMessage : IMessage

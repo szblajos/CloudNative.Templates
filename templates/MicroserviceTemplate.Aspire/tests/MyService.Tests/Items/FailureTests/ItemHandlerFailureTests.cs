@@ -1,11 +1,11 @@
 using Moq;
-using MyService.Application.Item.Handlers;
-using MyService.Application.Item.Commands;
-using MyService.Application.Item.Dtos;
+using MyService.Application.Items.Handlers;
+using MyService.Application.Items.Commands;
+using MyService.Application.Items.Dtos;
 using MyService.Domain.Items.Entities;
 using FluentValidation;
 using MyService.Domain.Items.Interfaces;
-using MyService.Application.Item.Mappings;
+using MyService.Application.Items.Mappings;
 using Mediator;
 using MyService.Domain.Common.Interfaces;
 
