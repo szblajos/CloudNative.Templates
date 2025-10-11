@@ -1,4 +1,4 @@
-namespace MyService.Domain.Entities;
+namespace MyService.Domain.Common.Entities;
 
 public class OutboxMessage : BaseEntity
 {

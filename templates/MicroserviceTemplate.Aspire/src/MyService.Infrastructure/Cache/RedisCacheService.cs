@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Configuration;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Common.Interfaces;
 using StackExchange.Redis;
 using System.Text.Json;
 

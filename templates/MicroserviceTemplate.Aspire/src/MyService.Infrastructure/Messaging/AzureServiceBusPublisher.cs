@@ -1,6 +1,6 @@
 using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Configuration;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Common.Interfaces;
 using System.Text.Json;
 
 namespace MyService.Infrastructure.Messaging;

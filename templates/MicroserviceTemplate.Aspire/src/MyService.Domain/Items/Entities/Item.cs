@@ -1,4 +1,6 @@
-namespace MyService.Domain.Entities;
+using MyService.Domain.Common.Entities;
+
+namespace MyService.Domain.Items.Entities;
 
 public class Item : BaseEntity
 {

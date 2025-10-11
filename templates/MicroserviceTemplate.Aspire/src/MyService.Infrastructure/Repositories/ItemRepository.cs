@@ -1,18 +1,18 @@
-using MyService.Domain.Entities;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Items.Entities;
+using MyService.Domain.Items.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyService.Infrastructure.Repositories
 {    
-    public class ItemRepository : IItemRepository
+    public class ItemsRepository : IItemsRepository
     {
         private readonly Data.AppDbContext _dbContext;
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="ItemRepository"/> class.
+        /// Initializes a new instance of the <see cref="ItemsRepository"/> class.
         /// </summary>
         /// <param name="dbContext">The database context to be used by the repository.</param>
-        public ItemRepository(Data.AppDbContext dbContext)
+        public ItemsRepository(Data.AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }

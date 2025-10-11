@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MyService.Domain.Entities;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Common.Entities;
+using MyService.Domain.Common.Interfaces;
 using MyService.Infrastructure.Data;
 
 namespace MyService.Infrastructure.Repositories

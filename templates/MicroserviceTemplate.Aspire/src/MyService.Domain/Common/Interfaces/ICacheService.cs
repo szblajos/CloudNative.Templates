@@ -1,4 +1,4 @@
-namespace MyService.Domain.Interfaces;
+namespace MyService.Domain.Common.Interfaces;
 
 public interface ICacheService
 {

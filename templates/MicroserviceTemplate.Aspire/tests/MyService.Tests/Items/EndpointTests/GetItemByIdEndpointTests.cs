@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
-using MyService.Domain.Entities;
+using MyService.Domain.Items.Entities;
 using System.Net;
 
 namespace MyService.Tests.Items.EndpointTests;

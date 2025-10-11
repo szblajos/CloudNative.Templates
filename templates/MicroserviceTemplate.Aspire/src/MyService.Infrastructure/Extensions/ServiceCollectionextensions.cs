@@ -2,7 +2,7 @@ namespace MyService.Infrastructure.Extensions;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Common.Interfaces;
 using MyService.Infrastructure.Cache;
 using MyService.Infrastructure.Data;
 using MyService.Infrastructure.Messaging;

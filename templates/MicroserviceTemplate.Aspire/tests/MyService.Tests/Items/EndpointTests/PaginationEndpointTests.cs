@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
 using MyService.Application.Common;
 using MyService.Application.Item.Dtos;
-using MyService.Domain.Entities;
+using MyService.Domain.Items.Entities;
 using System.Text.Json;
 
 namespace MyService.Tests.Items.EndpointTests;

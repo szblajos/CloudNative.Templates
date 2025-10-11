@@ -1,8 +1,8 @@
-using MyService.Domain.Entities;
+using MyService.Domain.Items.Entities;
 
-namespace MyService.Domain.Interfaces;
+namespace MyService.Domain.Items.Interfaces;
 
-public interface IItemRepository
+public interface IItemsRepository
 {
     /// <summary>
     /// Gets an item by its unique identifier.

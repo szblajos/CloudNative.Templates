@@ -2,8 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
-using MyService.Domain.Entities;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Common.Entities;
+using MyService.Domain.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MyService.Infrastructure.Data;
 

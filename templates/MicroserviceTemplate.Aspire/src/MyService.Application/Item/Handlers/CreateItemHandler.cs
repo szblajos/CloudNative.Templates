@@ -1,22 +1,23 @@
 using Mediator;
 using MyService.Application.Item.Commands;
 using MyService.Application.Item.Mappings;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Items.Interfaces;
+using MyService.Domain.Common.Interfaces;
 using MyService.Application.Item.Dtos;
 using FluentValidation;
 using MyService.Application.Item.Validations;
 using System;
-using MyService.Domain.Events;
+using MyService.Domain.Items.Events;
 
 namespace MyService.Application.Item.Handlers;
 
 public sealed class CreateItemHandler(
-    IItemRepository repository,
+    IItemsRepository itemsRepository,
     IItemMapper mapper,
     IUnitOfWork unitOfWork,
     IValidator<CreateItemCommand> validator) : IRequestHandler<CreateItemCommand, ItemDto>
 {
-    private readonly IItemRepository _repository = repository;
+    private readonly IItemsRepository _itemsRepository = itemsRepository;
     private readonly IItemMapper _mapper = mapper;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IValidator<CreateItemCommand> _validator = validator;
@@ -39,7 +40,7 @@ public sealed class CreateItemHandler(
             await _unitOfWork.BeginAsync();
 
             // Add the new item to the repository
-            await _repository.AddAsync(entity);
+            await _itemsRepository.AddAsync(entity);
 
             // Publish the event
             var evt = new ItemCreatedV1 { ItemId = entity.Id };

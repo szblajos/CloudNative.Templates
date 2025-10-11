@@ -1,4 +1,4 @@
-namespace MyService.Domain.Events;
+namespace MyService.Domain.Items.Events;
 
 public class ItemDeletedV1
 {

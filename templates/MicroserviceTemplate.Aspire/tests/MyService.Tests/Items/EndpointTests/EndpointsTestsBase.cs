@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using MyService.Application.Item.Dtos;
-using MyService.Domain.Entities;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Common.Entities;
+using MyService.Domain.Common.Interfaces;
+using MyService.Domain.Items.Interfaces;
 using StackExchange.Redis;
 using System.Net.Http;
 
@@ -12,7 +13,7 @@ namespace MyService.Tests.Items.EndpointTests;
 public abstract class EndpointsTestsBase : IClassFixture<WebApplicationFactory<Program>>
 {
     protected readonly HttpClient Client;
-    protected readonly Mock<IItemRepository> ItemRepositoryMock = new();
+    protected readonly Mock<IItemsRepository> ItemRepositoryMock = new();
     protected readonly Mock<IOutboxMessageRepository> OutboxMessageRepositoryMock = new();
     protected readonly Mock<ICacheService> CacheMock = new();
     protected readonly Mock<IMessagePublisher> MessagePublisherMock = new();
@@ -28,7 +29,7 @@ public abstract class EndpointsTestsBase : IClassFixture<WebApplicationFactory<P
             builder.ConfigureServices(services =>
             {
                 // Remove the existing service registrations
-                RemoveService<IItemRepository>(services);
+                RemoveService<IItemsRepository>(services);
                 RemoveService<IOutboxMessageRepository>(services);
                 RemoveService<IConnectionMultiplexer>(services);
                 RemoveService<ICacheService>(services);

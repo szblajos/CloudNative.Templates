@@ -1,4 +1,4 @@
-namespace MyService.Domain.Attributes;
+namespace MyService.Domain.Common.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class EventNameAttribute : Attribute

@@ -4,7 +4,7 @@ using MyService.Application.Item.Dtos;
 using MyService.Application.Item.Queries;
 using MyService.Application.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Common.Interfaces;
 using MyService.Application.Common;
 
 namespace MyService.Api.Items.Endpoints;

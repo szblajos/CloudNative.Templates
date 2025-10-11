@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using MyService.Domain.Entities;
+using MyService.Domain.Items.Entities;
+using MyService.Domain.Common.Entities;
 
 namespace MyService.Infrastructure.Data;
 

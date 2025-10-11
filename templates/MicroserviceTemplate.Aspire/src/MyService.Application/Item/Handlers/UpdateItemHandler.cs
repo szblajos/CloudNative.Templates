@@ -1,14 +1,15 @@
 using FluentValidation;
 using Mediator;
 using MyService.Application.Item.Commands;
-using MyService.Domain.Events;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Items.Events;
+using MyService.Domain.Items.Interfaces;
+using MyService.Domain.Common.Interfaces;
 
 namespace MyService.Application.Item.Handlers;
 
-public class UpdateItemHandler(IItemRepository itemRepository, IValidator<UpdateItemCommand> validator, IUnitOfWork unitOfWork) : ICommandHandler<UpdateItemCommand>
+public class UpdateItemHandler(IItemsRepository itemsRepository, IValidator<UpdateItemCommand> validator, IUnitOfWork unitOfWork) : ICommandHandler<UpdateItemCommand>
 {
-    private readonly IItemRepository _repository = itemRepository;
+    private readonly IItemsRepository _repository = itemsRepository;
     private readonly IValidator<UpdateItemCommand> _validator = validator;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 

@@ -15,8 +15,8 @@ builder.Services.AddDbContext<MyService.Infrastructure.Data.AppDbContext>(option
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register repositories
-builder.Services.AddScoped<MyService.Domain.Interfaces.IItemRepository, MyService.Infrastructure.Repositories.ItemRepository>();
-builder.Services.AddScoped<MyService.Domain.Interfaces.IOutboxMessageRepository, MyService.Infrastructure.Repositories.OutboxMessageRepository>();
+builder.Services.AddScoped<MyService.Domain.Items.Interfaces.IItemsRepository, MyService.Infrastructure.Repositories.ItemsRepository>();
+builder.Services.AddScoped<MyService.Domain.Common.Interfaces.IOutboxMessageRepository, MyService.Infrastructure.Repositories.OutboxMessageRepository>();
 
 // Add ServiceDefaults (if using Aspire)
 builder.AddServiceDefaults();

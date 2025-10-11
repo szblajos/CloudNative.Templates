@@ -1,7 +1,7 @@
 
 using System.Text;
 using Microsoft.Extensions.Configuration;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Common.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 

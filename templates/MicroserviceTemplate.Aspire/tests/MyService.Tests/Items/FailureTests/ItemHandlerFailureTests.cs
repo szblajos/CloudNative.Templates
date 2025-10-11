@@ -2,11 +2,12 @@ using Moq;
 using MyService.Application.Item.Handlers;
 using MyService.Application.Item.Commands;
 using MyService.Application.Item.Dtos;
-using MyService.Domain.Entities;
+using MyService.Domain.Items.Entities;
 using FluentValidation;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Items.Interfaces;
 using MyService.Application.Item.Mappings;
 using Mediator;
+using MyService.Domain.Common.Interfaces;
 
 namespace MyService.Tests.Items.FailureTests;
 
@@ -15,7 +16,7 @@ public class ItemHandlerFailureTests
     [Fact]
     public async Task CreateItemHandler_RollsBack_WhenRepositoryThrows()
     {
-        var repoMock = new Mock<IItemRepository>();
+        var repoMock = new Mock<IItemsRepository>();
         var mapperMock = new Mock<IItemMapper>();
         var unitOfWorkMock = new Mock<IUnitOfWork>();
         var validatorMock = new Mock<IValidator<CreateItemCommand>>();
@@ -36,7 +37,7 @@ public class ItemHandlerFailureTests
     [Fact]
     public async Task UpdateItemHandler_RollsBack_WhenRepositoryThrows()
     {
-        var repoMock = new Mock<IItemRepository>();
+        var repoMock = new Mock<IItemsRepository>();
         var unitOfWorkMock = new Mock<IUnitOfWork>();
         var validatorMock = new Mock<IValidator<UpdateItemCommand>>();
 
@@ -57,7 +58,7 @@ public class ItemHandlerFailureTests
     [Fact]
     public async Task DeleteItemHandler_RollsBack_WhenRepositoryThrows()
     {
-        var repoMock = new Mock<IItemRepository>();
+        var repoMock = new Mock<IItemsRepository>();
         var unitOfWorkMock = new Mock<IUnitOfWork>();
 
         var command = new DeleteItemCommand(id: 1);

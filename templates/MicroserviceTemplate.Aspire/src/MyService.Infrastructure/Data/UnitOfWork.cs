@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MyService.Domain.Interfaces;
+using MyService.Domain.Common.Interfaces;
 using MyService.Infrastructure.Services;
 
 namespace MyService.Infrastructure.Data;
