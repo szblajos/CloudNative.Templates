@@ -1,9 +1,7 @@
-using MyService.Api.Extensions;
-using Microsoft.EntityFrameworkCore;
-using MyService.Application.Item.Mappings;
-using MyService.Application.Extensions;
+using MyService.Api.Common.Extensions;
+using MyService.Application.Common.Extensions;
 using Scalar.AspNetCore;
-using MyService.Infrastructure.Extensions;
+using MyService.Infrastructure.Common.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,22 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
-// Configure Entity Framework Core with PostgreSQL
-builder.Services.AddDbContext<MyService.Infrastructure.Data.AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Register infrastructure services
+builder.Services.AddInfrastructureServices(builder.Configuration, "DefaultConnection");
 
 // Register repositories
-builder.Services.AddScoped<MyService.Domain.Interfaces.IItemRepository, MyService.Infrastructure.Repositories.ItemRepository>();
-builder.Services.AddScoped<MyService.Domain.Interfaces.IOutboxMessageRepository, MyService.Infrastructure.Repositories.OutboxMessageRepository>();
+builder.Services.AddScoped<MyService.Domain.Items.Interfaces.IItemsRepository, MyService.Infrastructure.Items.Repositories.ItemsRepository>();
+builder.Services.AddScoped<MyService.Domain.Common.Interfaces.IOutboxMessageRepository, MyService.Infrastructure.Common.Repositories.OutboxMessageRepository>();
 
 // Add ServiceDefaults (if using Aspire)
 builder.AddServiceDefaults();
 
 // Register application services
 builder.Services.AddApplicationServices(builder.Configuration);
-
-// Register infrastructure services
-builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 

@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspnetCore.Mvc.Testing" Version="9.0.8" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="moq" Version="4.20.72" />
+    <PackageReference Include="NetArchTest.Rules" Version="1.3.2" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
@@ -19,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\MyService.Api\MyService.Api.csproj" />
     <ProjectReference Include="..\..\src\MyService.Domain\MyService.Domain.csproj" />
+    <ProjectReference Include="..\..\src\MyService.Infrastructure\MyService.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

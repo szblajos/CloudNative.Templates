@@ -1,9 +1,9 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using MyService.Domain.Entities;
+using MyService.Domain.Common.Entities;
 using MyService.Infrastructure.Data;
 
-namespace MyService.Infrastructure.Services;
+namespace MyService.Infrastructure.Common.Services;
 
 /// <summary>
 /// Represents an outbox service.
