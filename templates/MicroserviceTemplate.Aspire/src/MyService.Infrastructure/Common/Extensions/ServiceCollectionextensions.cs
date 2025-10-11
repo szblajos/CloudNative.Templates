@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyService.Domain.Common.Interfaces;
@@ -183,19 +184,45 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+    public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration config, string connectionStringName = "DefaultConnection")
+    {
+        if (IsTestEnvironment(config))
+        {
+            // In test environment, we can use a mock or a test container for Database
+            return services;
+        }
+
+        if (config == null)
+        {
+            throw new ArgumentNullException(nameof(config), "Configuration is required to set up the database");
+        }
+
+        if (config.GetConnectionString(connectionStringName) == null)
+        {
+            throw new ArgumentNullException(connectionStringName, $"Database:ConnectionString configuration: {connectionStringName} is missing");
+        }
+
+        services.AddDbContext<Infrastructure.Data.AppDbContext>(options =>
+            options.UseNpgsql(config.GetConnectionString(connectionStringName)));
+        return services;
+    }
+
     /// <summary>
     /// Adds infrastructure services to the container.
     /// </summary>
     /// <param name="services">The service collection.</param>
     /// <param name="config">The configuration.</param>
     /// <returns>Returns the configured service collection.</returns>
-    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration config, string connectionStringName = "DefaultConnection")
     {
         // Register messaging services
         services.AddMessageBroker(config);
 
         // Register caching services
         services.AddCache(config);
+
+        // Register database context
+        services.AddDatabase(config, connectionStringName);
 
         // Register other infrastructure services
         services.AddScoped<IUnitOfWork, UnitOfWork>();
