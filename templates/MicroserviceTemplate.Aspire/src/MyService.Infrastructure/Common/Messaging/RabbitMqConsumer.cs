@@ -5,7 +5,7 @@ using MyService.Domain.Common.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace MyService.Infrastructure.Messaging;
+namespace MyService.Infrastructure.Common.Messaging;
 
 public class RabbitMqConsumer : IMessageConsumer
 {

@@ -1,20 +1,20 @@
-namespace MyService.Infrastructure.Extensions;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyService.Domain.Common.Interfaces;
-using MyService.Infrastructure.Cache;
-using MyService.Infrastructure.Data;
-using MyService.Infrastructure.Messaging;
-using MyService.Infrastructure.Services;
+using MyService.Infrastructure.Common.Cache;
+using MyService.Infrastructure.Common.Data;
+using MyService.Infrastructure.Common.Messaging;
+using MyService.Infrastructure.Common.Services;
 using StackExchange.Redis;
+
+namespace MyService.Infrastructure.Common.Extensions;
 
 /// <summary>
 /// Extension methods for registering infrastructure services.
 /// </summary>
 public static class ServiceCollectionExtensions
 {
-    
+
     // Helper method to check for test environment
     static bool IsTestEnvironment(IConfiguration config)
     {

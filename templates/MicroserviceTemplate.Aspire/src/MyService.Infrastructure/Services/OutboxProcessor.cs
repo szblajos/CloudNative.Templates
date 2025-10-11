@@ -1,12 +1,9 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
-using MyService.Domain.Common.Entities;
 using MyService.Domain.Common.Interfaces;
-using Microsoft.Extensions.Configuration;
-using MyService.Infrastructure.Data;
 
+namespace MyService.Infrastructure.Common.Services;
 
 /// <summary>
 /// Represents a background service that processes outbox messages.

@@ -3,7 +3,7 @@ using MyService.Domain.Common.Interfaces;
 using StackExchange.Redis;
 using System.Text.Json;
 
-namespace MyService.Infrastructure.Cache;
+namespace MyService.Infrastructure.Common.Cache;
 
 /// <summary>
 /// Redis cache service implementation.

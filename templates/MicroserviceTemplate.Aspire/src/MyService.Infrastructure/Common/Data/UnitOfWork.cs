@@ -1,8 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using MyService.Domain.Common.Interfaces;
-using MyService.Infrastructure.Services;
+using MyService.Infrastructure.Common.Services;
+using MyService.Infrastructure.Data;
 
-namespace MyService.Infrastructure.Data;
+namespace MyService.Infrastructure.Common.Data;
 
 /// <summary>
 /// Represents a unit of work.

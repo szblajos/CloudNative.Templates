@@ -2,7 +2,7 @@ using MyService.Api.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
 using MyService.Application.Extensions;
 using Scalar.AspNetCore;
-using MyService.Infrastructure.Extensions;
+using MyService.Infrastructure.Common.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +15,8 @@ builder.Services.AddDbContext<MyService.Infrastructure.Data.AppDbContext>(option
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register repositories
-builder.Services.AddScoped<MyService.Domain.Items.Interfaces.IItemsRepository, MyService.Infrastructure.Repositories.ItemsRepository>();
-builder.Services.AddScoped<MyService.Domain.Common.Interfaces.IOutboxMessageRepository, MyService.Infrastructure.Repositories.OutboxMessageRepository>();
+builder.Services.AddScoped<MyService.Domain.Items.Interfaces.IItemsRepository, MyService.Infrastructure.Items.Repositories.ItemsRepository>();
+builder.Services.AddScoped<MyService.Domain.Common.Interfaces.IOutboxMessageRepository, MyService.Infrastructure.Common.Repositories.OutboxMessageRepository>();
 
 // Add ServiceDefaults (if using Aspire)
 builder.AddServiceDefaults();

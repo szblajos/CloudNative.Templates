@@ -3,7 +3,7 @@ using MyService.Domain.Common.Entities;
 using MyService.Domain.Common.Interfaces;
 using MyService.Infrastructure.Data;
 
-namespace MyService.Infrastructure.Repositories
+namespace MyService.Infrastructure.Common.Repositories
 {
     public class OutboxMessageRepository : IOutboxMessageRepository
     {

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using MyService.Domain.Common.Interfaces;
 using System.Text.Json;
 
-namespace MyService.Infrastructure.Messaging;
+namespace MyService.Infrastructure.Common.Messaging;
 
 public class AzureServiceBusPublisher : IMessagePublisher
 {

@@ -2,7 +2,7 @@ using MyService.Domain.Items.Entities;
 using MyService.Domain.Items.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyService.Infrastructure.Repositories
+namespace MyService.Infrastructure.Items.Repositories
 {    
     public class ItemsRepository : IItemsRepository
     {

@@ -2,7 +2,7 @@ using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using MyService.Domain.Common.Interfaces;
 
-namespace MyService.Infrastructure.Messaging;
+namespace MyService.Infrastructure.Common.Messaging;
 
 public class AzureServiceBusConsumer : IMessageConsumer
 {

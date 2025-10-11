@@ -1,4 +1,4 @@
-namespace MyService.Infrastructure.Services;
+namespace MyService.Infrastructure.Common.Services;
 
 /// <summary>
 /// Represents an outbox service.
