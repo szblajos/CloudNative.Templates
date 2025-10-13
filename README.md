@@ -78,6 +78,6 @@ More templates will be added in the future.
 
 ## 📄 License
 
-This project is licensed under the [Apache License 2.0](LICENSE).
+This project is licensed under the [Apache License 2.0](https://github.com/szblajos/CloudNative.Templates/blob/main/LICENSE).
 
-See the [NOTICE.txt](NOTICE.txt) file for additional information.
+See the [NOTICE.txt](https://github.com/szblajos/CloudNative.Templates/blob/main/NOTICE.txt) file for additional information.

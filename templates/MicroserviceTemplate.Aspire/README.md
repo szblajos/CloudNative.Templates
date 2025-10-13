@@ -1,6 +1,19 @@
-# MicroserviceTemplate.Aspire
+# Project details
+
+This project is created by using [MicroserviceTemplate.Aspire](#microservicetemplateaspire) template from the package [Szblajos.CloudNative.Templates](https://www.nuget.org/packages/Szblajos.CloudNative.Templates) hosted on NuGet.org.
+
+**Template created by:** [Lajos Szabó](https://github.com/szblajos)  
+**Source repository:** [https://github.com/szblajos/CloudNative.Templates](https://github.com/szblajos/CloudNative.Templates)  
+**License:** [Apache 2.0 License](https://github.com/szblajos/CloudNative.Templates/blob/main/LICENSE)  
+**Please see:** [NOTICE.txt](https://github.com/szblajos/CloudNative.Templates/blob/main/NOTICE.txt) for detailed attribution and third-party notices  
+
+---
+
+## MicroserviceTemplate.Aspire
 
 A modern, production-ready .NET microservice template built with Clean Architecture principles, advanced messaging, orchestration, and extensibility in mind.
+
+The template project was created by [Lajos Szabó](https://github.com/szblajos) to help others build robust, scalable, and maintainable microservices with .NET. Its goal is to accelerate development by providing a solid foundation that follows best practices, enabling teams to focus on delivering business value rather than boilerplate setup.
 
 ---
 
@@ -21,46 +34,68 @@ A modern, production-ready .NET microservice template built with Clean Architect
 ## 🏗️ Project Structure
 
 ``` txt
-MicroserviceTemplate.Aspire.sln
+*.sln
 src/
-  MyService.Api/            # Minimal API, endpoints, DI setup
-  MyService.Application/    # CQRS, Mediator handlers, validation, behaviors
-  MyService.Domain/         # Entities, domain events, interfaces
-  MyService.Infrastructure/ # EF Core, cache, messaging, outbox, DI extensions
-  MyService.Orchestration/  # Aspire orchestration project
+  *.Api/            # Minimal API, endpoints, DI setup
+  *.Application/    # CQRS, Mediator handlers, validation, behaviors
+  *.Domain/         # Entities, domain events, interfaces
+  *.Infrastructure/ # EF Core, cache, messaging, outbox, DI extensions
+  *.Orchestration/  # Aspire orchestration project
 
 tests/
-  MyService.Tests/          # Unit and integration tests
+  *.Tests/          # Unit, integration and Arcitecture tests
 ```
+
+---
+
+## 🛠️ Prerequisites
+
+Before running this project, ensure you have the following installed:
+
+- **[Docker Desktop](https://www.docker.com/products/docker-desktop/):** Required for running infrastructure dependencies (e.g., PostgreSQL, Redis, RabbitMQ) in containers.
+- **.NET Aspire Workload:** Install the Aspire workload for orchestrating and running the solution locally.
+
+  ```sh
+  dotnet workload install aspire
+  ```
+
+Make sure Docker Desktop is running and the Aspire workload is installed before starting the project.
 
 ---
 
 ## 🚀 Getting Started
 
-1. **Clone the template parent repository**
+To restore dependencies, run the project, and execute tests, follow these steps:
 
-    ```sh
-    git clone https://github.com/szblajos/CloudNative.Templates.git
-    cd templates/MicroserviceTemplate.Aspire
-    ```
+### 1. Restore Dependencies
 
-2. **Restore dependencies**
+Restore all NuGet packages for the solution:
 
-    ```sh
-    dotnet restore
-    ```
+```sh
+dotnet restore
+```
 
-3. **Build the solution**
+### 2. Run the Solution
 
-    ```sh
-    dotnet build
-    ```
+Start the Aspire orchestration project to launch all services and dependencies:
 
-4. **Run the Aspire Orchestration**
+```sh
+dotnet run --project src/YourProject.Orchestration
+```
 
-    ```sh
-    dotnet run --project src/MyService.Orchestration
-    ```
+Replace `YourProject.Orchestration` with the actual orchestration project folder name if different.
+
+### 3. Run Tests
+
+Execute all unit and integration tests:
+
+```sh
+dotnet test
+```
+
+---
+
+After these steps, your microservice and its dependencies should be running locally, and you can verify functionality by running the test suite.
 
 ---
 
@@ -106,10 +141,37 @@ tests/
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please open issues or pull requests for improvements, bugfixes, or new features.
+We welcome contributions from the community! If you'd like to improve this template or add new features to the template:
+
+- 🐛 **Report bugs** or request features by [opening an issue](https://github.com/szblajos/CloudNative.Templates/issues)
+- 🔧 **Submit improvements** via [pull requests](https://github.com/szblajos/CloudNative.Templates/pulls)
+- 💡 **Share ideas** and feedback in the [repository discussions](https://github.com/szblajos/CloudNative.Templates/discussions)
+
+Your contributions help make this template better for everyone!
 
 ---
 
-## 📄 License
+## 📄 License & Attribution
 
-This project is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+This template is licensed under the **Apache License 2.0**.
+
+**Template Author:** [Lajos Szabó](https://github.com/szblajos)  
+**Source Repository:** [https://github.com/szblajos/CloudNative.Templates](https://github.com/szblajos/CloudNative.Templates)  
+
+⚠️ **Important:** Please review the [NOTICE.txt](NOTICE.txt) file for detailed attribution information and third-party component licenses used in this project.
+
+For the full license text, see [LICENSE](https://github.com/szblajos/CloudNative.Templates/blob/main/LICENSE) or visit [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
+
+---
+
+## ☕ Support
+
+If you find the [MicroserviceTemplate.Aspire](https://www.nuget.org/packages/Szblajos.CloudNative.Templates) useful and would like to support my future open-source work, your contribution is much appreciated!
+
+- [Buy Me a Coffee](https://buymeacoffee.com/szblajos)
+- [PayPal Donation](https://www.paypal.com/donate/?hosted_button_id=X6GCG6ZTK84GQ)
+  - €3 – Coffee-level appreciation ☕
+  - €10 – Time-saver recognition 🔧
+  - €25 – Production-grade support 🚀
+
+Thank you for your support!
